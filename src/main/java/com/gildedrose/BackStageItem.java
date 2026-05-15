@@ -8,14 +8,14 @@ public class BackStageItem extends GildedRoseItem {
 
     @Override
     public void updateQuality() {
-        if (item.quality < 50)
+        if (item.quality < MAX_QUALITY)
             item.quality++;
-        if (item.sellIn < 11 && item.quality < 50)
+        if (item.sellIn < 11 && item.quality < MAX_QUALITY)
             item.quality++;
-        if (item.sellIn < 6 && item.quality < 50)
+        if (item.sellIn < 6 && item.quality < MAX_QUALITY)
             item.quality++;
         if (item.sellIn < 1)
-            item.quality = 0;
+            item.quality = MIN_QUALITY;
     }
 
 }

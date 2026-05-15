@@ -8,15 +8,15 @@ public class ConjuredItem extends GildedRoseItem {
 
     @Override
     public void updateQuality() {
-        if (item.quality > 0) {
-            if (item.quality - 2 <= 0)
-                item.quality = 0;
+        if (item.quality > MIN_QUALITY) {
+            if (item.quality - 2 <= MIN_QUALITY)
+                item.quality = MIN_QUALITY;
             else
                 item.quality = item.quality - 2;
         }
-        if (item.sellIn < 1 && item.quality > 0) {
-            if (item.quality - 2 <= 0)
-                item.quality = 0;
+        if (item.sellIn < 1 && item.quality > MIN_QUALITY) {
+            if (item.quality - 2 <= MIN_QUALITY)
+                item.quality = MIN_QUALITY;
             else
                 item.quality = item.quality - 2;
         }

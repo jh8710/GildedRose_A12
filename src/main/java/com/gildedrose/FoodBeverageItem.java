@@ -8,18 +8,18 @@ public class FoodBeverageItem extends GildedRoseItem {
 
     @Override
     public void updateQuality() {
-        if (item.quality > 0)
+        if (item.quality > MIN_QUALITY)
 
         {
             item.quality--;
-            if (item.quality > 0)
+            if (item.quality > MIN_QUALITY)
                 item.quality--;
         }
         // sellIn 지나면 추가 2배
         if (item.sellIn < 1) {
-            if (item.quality > 0) {
+            if (item.quality > MIN_QUALITY) {
                 item.quality--;
-                if (item.quality > 0)
+                if (item.quality > MIN_QUALITY)
                     item.quality--;
             }
         }
