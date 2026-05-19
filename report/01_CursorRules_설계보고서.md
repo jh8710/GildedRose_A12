@@ -1,55 +1,80 @@
 # CursorRules 설계보고서
 
-## 1. 아이템 타입별 비즈니스 규칙
+## 1. 작성 목적
 
-| 아이템 타입 | sellIn 변화 | quality 변화 | sellIn 만료 후 규칙 | quality 상한/하한 |
-| --- | --- | --- | --- | --- |
-| Normal | 매일 1 감소 | 매일 1 감소 | quality가 하루에 2 감소 | 0 이상 50 이하 |
-| Aged Brie | 매일 1 감소 | 매일 1 증가 | quality가 하루에 2 증가 | 0 이상 50 이하 |
-| Backstage Pass | 매일 1 감소 | sellIn 11일 이상: 1 증가<br>sellIn 10일 이하: 2 증가<br>sellIn 5일 이하: 3 증가 | 콘서트 이후 quality가 0이 됨 | 0 이상 50 이하 |
-| Sulfuras | 변하지 않음 | 변하지 않음 | 만료 개념 없음 | 예외적으로 quality 80 유지 |
-| Conjured | 매일 1 감소 | Normal 아이템보다 2배 빠르게 감소 | quality가 Normal 만료 후 감소율의 2배로 감소 | 0 이상 50 이하 |
+Gilded Rose Java 프로젝트에서 Cursor AI가 레거시 코드 QA와 리팩토링 작업을 수행할 때 항상 따라야 할 프로젝트 규칙을 정의한다.
 
-## 2. 예외 및 경계값 조건
+이 규칙은 Java 21, Maven, JUnit 5, JaCoCo 기반의 Gilded Rose 프로젝트에서 도메인 제약을 보존하고, 안전한 테스트 중심 리팩토링을 유도하기 위한 기준이다.
 
-1. 모든 일반 아이템의 `quality`는 `0`보다 작아질 수 없다.
-2. 모든 일반 아이템의 `quality`는 `50`보다 커질 수 없다.
-3. `Sulfuras`는 전설 아이템이므로 `quality`가 `80`이며, `quality`와 `sellIn`이 모두 변하지 않는다.
-4. `sellIn`은 음수가 될 수 있다. 만료 후 상태를 표현하기 위해 `sellIn = -1` 이하를 허용해야 한다.
-5. `sellIn = 0`은 업데이트 시점에서 만료 경계값이다. 하루 업데이트 후 `sellIn`은 `-1`이 되며, 아이템별 만료 후 규칙이 적용되어야 한다.
-6. `sellIn = -1` 또는 더 작은 음수 값은 이미 만료된 상태로 취급한다.
-7. `quality = 0`인 감소형 아이템은 업데이트 후에도 `0`을 유지해야 한다.
-8. `quality = 50`인 증가형 아이템은 업데이트 후에도 `50`을 초과하면 안 된다.
-9. `Backstage Pass`는 콘서트 이후 `quality`가 즉시 `0`이 되어야 하며, 기존 quality 값과 관계없이 0으로 떨어진다.
+## 2. 적용 범위
 
-## 3. Conjured 신규 요구사항 명세
+1. Gilded Rose Java 프로젝트 전체에 적용한다.
+2. `Item` 클래스와 기존 공개 API를 보호한다.
+3. `updateQuality()` 관련 테스트 작성, 결함 수정, 리팩토링 작업에 적용한다.
+4. 신규 요구사항인 `Conjured` 아이템 구현 및 검증에도 동일하게 적용한다.
 
-1. `Conjured` 아이템은 새로 추가되는 아이템 카테고리다.
-2. `Conjured` 아이템의 `quality`는 Normal 아이템보다 2배 빠르게 감소한다.
-3. 판매 기한 전에는 하루에 `quality`가 2 감소한다.
-4. 판매 기한이 지난 후에는 Normal 아이템이 하루에 2 감소하므로, `Conjured` 아이템은 하루에 4 감소한다.
-5. `Conjured` 아이템도 `quality` 하한 `0`과 상한 `50` 규칙을 따른다.
-6. `Conjured` 아이템의 `sellIn`은 Normal 아이템처럼 매일 1 감소하며, 음수가 될 수 있다.
+## 3. CursorRules 설계 내용
 
-## 4. 테스트해야 할 주요 시나리오
+```text
+# Gilded Rose Java Project Rules
 
-1. Normal 아이템은 하루가 지나면 `sellIn`이 1 감소하고 `quality`가 1 감소한다.
-2. Normal 아이템은 `sellIn = 0`에서 업데이트 후 `sellIn = -1`이 되고 `quality`가 2 감소한다.
-3. Normal 아이템은 이미 만료된 `sellIn = -1`에서 `quality`가 2 감소한다.
-4. Normal 아이템의 `quality = 0`은 업데이트 후에도 0보다 작아지지 않는다.
-5. Aged Brie는 하루가 지나면 `sellIn`이 1 감소하고 `quality`가 1 증가한다.
-6. Aged Brie는 `sellIn = 0`에서 업데이트 후 `quality`가 2 증가한다.
-7. Aged Brie는 `quality = 50`에서 업데이트 후에도 50을 초과하지 않는다.
-8. Backstage Pass는 `sellIn >= 11`일 때 `quality`가 1 증가한다.
-9. Backstage Pass는 `sellIn = 10`일 때 `quality`가 2 증가한다.
-10. Backstage Pass는 `sellIn = 5`일 때 `quality`가 3 증가한다.
-11. Backstage Pass는 `sellIn = 0`에서 업데이트 후 콘서트가 지나면 `quality`가 0이 된다.
-12. Backstage Pass는 `quality = 50` 근처에서도 증가 후 50을 초과하지 않는다.
-13. Sulfuras는 하루가 지나도 `sellIn`과 `quality`가 모두 변하지 않는다.
-14. Sulfuras는 `quality = 80`을 유지하며 일반 quality 상한 50 규칙의 예외로 취급된다.
-15. Conjured 아이템은 판매 기한 전 하루 업데이트 후 `quality`가 2 감소한다.
-16. Conjured 아이템은 `sellIn = 0`에서 업데이트 후 `quality`가 4 감소한다.
-17. Conjured 아이템은 `sellIn = -1`에서 업데이트 후 `quality`가 4 감소한다.
-18. Conjured 아이템은 `quality = 0` 또는 감소량보다 낮은 quality에서 업데이트 후에도 0보다 작아지지 않는다.
-19. 모든 비-Sulfuras 아이템은 업데이트 후 `quality`가 0 이상 50 이하 범위에 있어야 한다.
-20. 모든 비-Sulfuras 아이템은 업데이트 후 `sellIn`이 1 감소하며, 음수 값도 허용되어야 한다.
+You are a senior Java engineer helping with QA and refactoring of a legacy Gilded Rose codebase.
+
+## Tech Stack
+
+- Use Java 21.
+- Use Maven for build and dependency management.
+- Use JUnit 5 for tests.
+- Use JaCoCo for test coverage checks when available.
+
+## Absolute Domain Rules
+
+- Never modify the `Item` class.
+- Treat `Item` as legacy/public API code.
+- Do not change public behavior unless tests explicitly define the intended change.
+- `quality` must always stay between `0` and `50`, except for `Sulfuras`.
+- `Sulfuras` quality does not change.
+- `sellIn` may become negative. Do not prevent or clamp negative `sellIn` values.
+- Preserve existing Gilded Rose rules unless the task explicitly asks to add or change behavior.
+
+## Testing Rules
+
+- Write tests before or alongside refactoring.
+- Use clear Given-When-Then structure in test names or test body comments.
+- Prefer `@ParameterizedTest` for repeated item rule cases.
+- Include boundary values in tests:
+  - `quality = 0`
+  - `quality = 50`
+  - `sellIn = 0`
+  - `sellIn = -1`
+- Cover normal, expired, and boundary behavior for each item type.
+- Tests should verify observable behavior through item name, sellIn, and quality.
+
+## Refactoring Rules
+
+- Refactor only while the test suite is Green.
+- Do not refactor blindly without characterization tests for existing behavior.
+- Keep changes small and behavior-preserving.
+- Prefer simple, readable Java over clever abstractions.
+- Extract constants for magic numbers where it improves clarity:
+  - minimum quality
+  - maximum quality
+  - quality change amounts
+  - sellIn threshold values
+- Avoid over-engineering. Add abstractions only when they make item rules easier to understand and test.
+- After each meaningful refactor, run the relevant Maven tests.
+
+## Code Style
+
+- Keep business rules explicit and easy to audit.
+- Use descriptive method and constant names.
+- Avoid duplicating quality-bound checks.
+- Do not introduce unrelated formatting or structural churn.
+```
+
+## 4. 기대 효과
+
+1. 레거시 코드의 핵심 제약인 `Item` 클래스 수정 금지를 명확히 한다.
+2. `quality`, `sellIn`, `Sulfuras` 예외 조건을 일관되게 유지한다.
+3. 테스트 Green 상태에서만 리팩토링하도록 하여 회귀 위험을 줄인다.
+4. 경계값 테스트와 Parameterized Test 작성을 유도해 QA 관점의 검증 범위를 넓힌다.
