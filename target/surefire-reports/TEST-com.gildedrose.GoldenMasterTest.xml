@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.gildedrose.GildedRoseTest" time="2.05" tests="34" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.gildedrose.GoldenMasterTest" time="0.093" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -60,38 +60,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="conjuredItemDegradesTwiceAsFast(int, int, int, int)[1]" classname="conjuredItemDegradesTwiceAsFast(int, int, int, int)[1]" time="0.754"/>
-  <testcase name="conjuredItemDegradesTwiceAsFast(int, int, int, int)[2]" classname="conjuredItemDegradesTwiceAsFast(int, int, int, int)[2]" time="0.004"/>
-  <testcase name="conjuredItemDegradesTwiceAsFast(int, int, int, int)[3]" classname="conjuredItemDegradesTwiceAsFast(int, int, int, int)[3]" time="0.005"/>
-  <testcase name="conjuredItemDegradesTwiceAsFast(int, int, int, int)[4]" classname="conjuredItemDegradesTwiceAsFast(int, int, int, int)[4]" time="0.006"/>
-  <testcase name="conjuredItemDegradesTwiceAsFast(int, int, int, int)[5]" classname="conjuredItemDegradesTwiceAsFast(int, int, int, int)[5]" time="0.008"/>
-  <testcase name="conjuredItemDegradesTwiceAsFast(int, int, int, int)[6]" classname="conjuredItemDegradesTwiceAsFast(int, int, int, int)[6]" time="0.006"/>
-  <testcase name="conjuredItemDegradesTwiceAsFast(int, int, int, int)[7]" classname="conjuredItemDegradesTwiceAsFast(int, int, int, int)[7]" time="0.007"/>
-  <testcase name="sulfurasNeverChanges(int, int)[1]" classname="sulfurasNeverChanges(int, int)[1]" time="0.013"/>
-  <testcase name="sulfurasNeverChanges(int, int)[2]" classname="sulfurasNeverChanges(int, int)[2]" time="0.004"/>
-  <testcase name="sulfurasNeverChanges(int, int)[3]" classname="sulfurasNeverChanges(int, int)[3]" time="0.045"/>
-  <testcase name="sulfurasNeverChanges(int, int)[4]" classname="sulfurasNeverChanges(int, int)[4]" time="0.004"/>
-  <testcase name="sulfurasNeverChanges(int, int)[5]" classname="sulfurasNeverChanges(int, int)[5]" time="0.003"/>
-  <testcase name="normalItemDecreasesQuality(int, int, int, int)[1]" classname="normalItemDecreasesQuality(int, int, int, int)[1]" time="0.034"/>
-  <testcase name="normalItemDecreasesQuality(int, int, int, int)[2]" classname="normalItemDecreasesQuality(int, int, int, int)[2]" time="0.005"/>
-  <testcase name="normalItemDecreasesQuality(int, int, int, int)[3]" classname="normalItemDecreasesQuality(int, int, int, int)[3]" time="0.005"/>
-  <testcase name="normalItemDecreasesQuality(int, int, int, int)[4]" classname="normalItemDecreasesQuality(int, int, int, int)[4]" time="0.004"/>
-  <testcase name="normalItemDecreasesQuality(int, int, int, int)[5]" classname="normalItemDecreasesQuality(int, int, int, int)[5]" time="0.007"/>
-  <testcase name="normalItemDecreasesQuality(int, int, int, int)[6]" classname="normalItemDecreasesQuality(int, int, int, int)[6]" time="0.002"/>
-  <testcase name="normalItemDecreasesQuality(int, int, int, int)[7]" classname="normalItemDecreasesQuality(int, int, int, int)[7]" time="0.005"/>
-  <testcase name="backstagePassUpdatesByConcertDate(int, int, int, int)[1]" classname="backstagePassUpdatesByConcertDate(int, int, int, int)[1]" time="0.007"/>
-  <testcase name="backstagePassUpdatesByConcertDate(int, int, int, int)[2]" classname="backstagePassUpdatesByConcertDate(int, int, int, int)[2]" time="0.005"/>
-  <testcase name="backstagePassUpdatesByConcertDate(int, int, int, int)[3]" classname="backstagePassUpdatesByConcertDate(int, int, int, int)[3]" time="0.031"/>
-  <testcase name="backstagePassUpdatesByConcertDate(int, int, int, int)[4]" classname="backstagePassUpdatesByConcertDate(int, int, int, int)[4]" time="0.035"/>
-  <testcase name="backstagePassUpdatesByConcertDate(int, int, int, int)[5]" classname="backstagePassUpdatesByConcertDate(int, int, int, int)[5]" time="0.011"/>
-  <testcase name="backstagePassUpdatesByConcertDate(int, int, int, int)[6]" classname="backstagePassUpdatesByConcertDate(int, int, int, int)[6]" time="0.004"/>
-  <testcase name="backstagePassUpdatesByConcertDate(int, int, int, int)[7]" classname="backstagePassUpdatesByConcertDate(int, int, int, int)[7]" time="0.005"/>
-  <testcase name="backstagePassUpdatesByConcertDate(int, int, int, int)[8]" classname="backstagePassUpdatesByConcertDate(int, int, int, int)[8]" time="0.005"/>
-  <testcase name="backstagePassUpdatesByConcertDate(int, int, int, int)[9]" classname="backstagePassUpdatesByConcertDate(int, int, int, int)[9]" time="0.006"/>
-  <testcase name="agedBrieIncreasesQuality(int, int, int, int)[1]" classname="agedBrieIncreasesQuality(int, int, int, int)[1]" time="0.004"/>
-  <testcase name="agedBrieIncreasesQuality(int, int, int, int)[2]" classname="agedBrieIncreasesQuality(int, int, int, int)[2]" time="0.003"/>
-  <testcase name="agedBrieIncreasesQuality(int, int, int, int)[3]" classname="agedBrieIncreasesQuality(int, int, int, int)[3]" time="0.004"/>
-  <testcase name="agedBrieIncreasesQuality(int, int, int, int)[4]" classname="agedBrieIncreasesQuality(int, int, int, int)[4]" time="0.003"/>
-  <testcase name="agedBrieIncreasesQuality(int, int, int, int)[5]" classname="agedBrieIncreasesQuality(int, int, int, int)[5]" time="0.002"/>
-  <testcase name="agedBrieIncreasesQuality(int, int, int, int)[6]" classname="agedBrieIncreasesQuality(int, int, int, int)[6]" time="0.003"/>
+  <testcase name="texttestFixtureOutputMatchesGoldenMaster" classname="texttestFixtureOutputMatchesGoldenMaster()" time="0.091"/>
 </testsuite>
