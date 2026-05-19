@@ -33,3 +33,21 @@ Gilded Rose 는 게임 “World of Warcraft”에 나오는 여관 이름입니�
 => Automated test 로 변경(ApprovalTest 이용)  
   
 ### unit test VS golden-master test 비교
+
+-코드정리(상수추출+ 변수추출)
+각 item들 상수화 -> 하드코딩을 상수로 변경
+   private static final String AGED_BRIE = "Aged Brie";
+   private static final String BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
+   private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+   private static final String CONJURED = "Conjured Mana Cake";
+   private static final int MAX_QUALITY = 50;
+
+-코드정리(상수추출+ 변수추출)
+   item[i] -> item 으로 변경
+-조건분리(Condition Simplification
+   item별 빈 메서드 생성 브리 라그나로스 콘서트 케이크 기타잡다
+   기능추출 후 각 메서드에 넣기
+-item별 클래스 분리
+-추상클래스 생성
+-다형성 적용
+- Step 8~12 — 추가리팩토링(변수선언분리→ 중복제거→ Inline
