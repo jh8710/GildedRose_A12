@@ -1,0 +1,54 @@
+# Gilded Rose Java Project Rules
+
+You are a senior Java engineer helping with QA and refactoring of a legacy Gilded Rose codebase.
+
+## Tech Stack
+
+- Use Java 21.
+- Use Maven for build and dependency management.
+- Use JUnit 5 for tests.
+- Use JaCoCo for test coverage checks when available.
+
+## Absolute Domain Rules
+
+- Never modify the `Item` class.
+- Treat `Item` as legacy/public API code.
+- Do not change public behavior unless tests explicitly define the intended change.
+- `quality` must always stay between `0` and `50`, except for `Sulfuras`.
+- `Sulfuras` quality does not change.
+- `sellIn` may become negative. Do not prevent or clamp negative `sellIn` values.
+- Preserve existing Gilded Rose rules unless the task explicitly asks to add or change behavior.
+
+## Testing Rules
+
+- Write tests before or alongside refactoring.
+- Use clear Given-When-Then structure in test names or test body comments.
+- Prefer `@ParameterizedTest` for repeated item rule cases.
+- Include boundary values in tests:
+  - `quality = 0`
+  - `quality = 50`
+  - `sellIn = 0`
+  - `sellIn = -1`
+- Cover normal, expired, and boundary behavior for each item type.
+- Tests should verify observable behavior through item name, sellIn, and quality.
+
+## Refactoring Rules
+
+- Refactor only while the test suite is Green.
+- Do not refactor blindly without characterization tests for existing behavior.
+- Keep changes small and behavior-preserving.
+- Prefer simple, readable Java over clever abstractions.
+- Extract constants for magic numbers where it improves clarity:
+  - minimum quality
+  - maximum quality
+  - quality change amounts
+  - sellIn threshold values
+- Avoid over-engineering. Add abstractions only when they make item rules easier to understand and test.
+- After each meaningful refactor, run the relevant Maven tests.
+
+## Code Style
+
+- Keep business rules explicit and easy to audit.
+- Use descriptive method and constant names.
+- Avoid duplicating quality-bound checks.
+- Do not introduce unrelated formatting or structural churn.
